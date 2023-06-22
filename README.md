@@ -2,7 +2,7 @@
 
 This is a Dart/Flutter plugin to know if the device security has been breached or not. For example it will let you know if the user rooted his device or not.
 
-Please Note: [isRooted] and [isJailBroken] are both async functions which returns a boolean use them wisely.
+Please Note: All functions are async functions which returns a boolean use them wisely.
 
 ## install:
 ```dart
