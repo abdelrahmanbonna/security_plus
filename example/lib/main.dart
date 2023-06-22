@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _MyAppState extends State<MyApp> {
       bool result = Platform.isAndroid ? await SecurityPlus.isRooted : await SecurityPlus.isJailBroken;
       _result = result;
     }catch (e){
-      print("=====error: isRooted======");
+      log('\x1B[31m=====error: Security Breached======\x1B[0m');
     }
 
     setState(() {
@@ -47,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Platform.isAndroid
               ? Text('Android is rooted : $_result\n')
-              : Text('iOS is is jailbroken : $_result\n'),
+              : Text('iOS is is jail broken : $_result\n'),
         ),
       ),
     );
