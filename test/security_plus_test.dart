@@ -23,23 +23,15 @@ void main() {
     expect(await SecurityPlus.isJailBroken, true);
   });
 
-  test('isJailBroken', () async {
+  test('isDevelopmentModeEnable', () async {
     expect(await SecurityPlus.isDevelopmentModeEnable, true);
   });
 
-  test('isJailBroken', () async {
+  test('isEmulator', () async {
     expect(await SecurityPlus.isEmulator, true);
   });
 
-  test('isJailBroken', () async {
+  test('isRooted', () async {
     expect(await SecurityPlus.isRooted, true);
-  });
-
-  test('isJailBroken', () async {
-    expect(await SecurityPlus.isJailBroken, true);
-  });
-
-  test('isJailBroken', () async {
-    expect(await SecurityPlus.isJailBroken, true);
   });
 }
