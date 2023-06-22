@@ -20,9 +20,18 @@ dependencies:
 // You could use [isJailBroken] to check if the IOS device is jail broken or not 
   SecurityPlus.isJailBroken
 
+// You could use [isOnExternalStorage] to check if the Android device is running your app on external storage or not 
+  SecurityPlus.isOnExternalStorage
+
+// You could use [isEmulator] to check if the Android device is Emulator or not 
+  SecurityPlus.isEmulator
+
+// You could use [isDevelopmentModeEnable] to check if the Android device is in Development mode or not 
+  SecurityPlus.isDevelopmentModeEnable
+
 ```
 
 
 ## Credits
 
-Thanks to [abu](https://github.com/abu0306) for creating flutter_root_jailbreak which was the base for this plugin.
+Thanks to [abu](https://github.com/abu0306) for creating flutter_root_jailbreak which was the inspiration for this plugin.
