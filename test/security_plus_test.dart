@@ -10,7 +10,7 @@ void main() {
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-      return '42';
+      return true;
     });
   });
 
@@ -20,6 +20,26 @@ void main() {
   });
 
   test('isJailBroken', () async {
-    expect(await SecurityPlus.isJailBroken, '42');
+    expect(await SecurityPlus.isJailBroken, true);
+  });
+
+  test('isJailBroken', () async {
+    expect(await SecurityPlus.isDevelopmentModeEnable, true);
+  });
+
+  test('isJailBroken', () async {
+    expect(await SecurityPlus.isEmulator, true);
+  });
+
+  test('isJailBroken', () async {
+    expect(await SecurityPlus.isRooted, true);
+  });
+
+  test('isJailBroken', () async {
+    expect(await SecurityPlus.isJailBroken, true);
+  });
+
+  test('isJailBroken', () async {
+    expect(await SecurityPlus.isJailBroken, true);
   });
 }
