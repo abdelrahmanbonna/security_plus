@@ -1,3 +1,7 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+* Jail break detection added.
+* Development mode detection added.
+* Emulator detection added.
+* Root detection added.
+* External storage run detection added.
