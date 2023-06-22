@@ -1,5 +1,5 @@
 name: security_plus
-description: A new Flutter plugin to detect root and jail break.
+description: A new Flutter plugin to detect more than one security alert like root, jailbreak, emulator, development mode , and external storage run.
 version: 1.0.0
 homepage: https://github.com/abdelrahmanbonna/security_plus
 
