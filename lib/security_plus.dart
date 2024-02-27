@@ -1,4 +1,3 @@
-
 import 'package:flutter/services.dart';
 
 /// A Flutter plugin to check for security alerts
@@ -36,7 +35,8 @@ class SecurityPlus {
   /// Android Development mode check
   /// this gets the value from native channel to flutter to know if app is running in development environment
   static Future<bool> get isDevelopmentModeEnable async {
-    final bool isRooted = await _channel.invokeMethod('isDevelopmentModeEnable');
+    final bool isRooted =
+        await _channel.invokeMethod('isDevelopmentModeEnable');
     return isRooted;
   }
 

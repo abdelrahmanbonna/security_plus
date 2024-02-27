@@ -1,9 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:async';
-
 import 'package:security_plus/security_plus.dart';
 
 void main() {
@@ -22,6 +21,8 @@ class _MyAppState extends State<MyApp> {
       _isDev = false,
       _isExtStorage = false,
       _isEmulator = false;
+  bool _isMockLocationEnabled = false;
+  MethodChannel platform = const MethodChannel('security_plus');
 
   @override
   void initState() {
@@ -30,6 +31,7 @@ class _MyAppState extends State<MyApp> {
     isExtStorage();
     isEmulator();
     isDevelopment();
+    isMockLocationEnabled();
   }
 
   Future<void> isRooted() async {
@@ -69,6 +71,17 @@ class _MyAppState extends State<MyApp> {
     }
 
     setState(() {});
+  }
+
+  Future<void> isMockLocationEnabled() async {
+    try {
+      final bool result = await platform.invokeMethod('isMockLocationEnabled');
+      setState(() {
+        _isMockLocationEnabled = result;
+      });
+    } on PlatformException catch (e) {
+      print("Failed to check mock location: '${e.message}'.");
+    }
   }
 
   Future<void> isDevelopment() async {
@@ -129,6 +142,15 @@ class _MyAppState extends State<MyApp> {
                   child: Center(
                       child: Text(
                           'Android is on External Storage : $_isExtStorage\n')),
+                ),
+              if (Platform.isAndroid)
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 100,
+                  child: Center(
+                    child: Text(
+                        'Mock Location Enabled: $_isMockLocationEnabled\n'),
+                  ),
                 ),
             ],
           ),
