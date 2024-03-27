@@ -1,28 +1,40 @@
 PODS:
+  - detect_fake_location (0.0.1):
+    - Flutter
   - Flutter (1.0.0)
   - integration_test (0.0.1):
+    - Flutter
+  - permission_handler_apple (9.1.1):
     - Flutter
   - security_plus (1.0.0):
     - Flutter
 
 DEPENDENCIES:
+  - detect_fake_location (from `.symlinks/plugins/detect_fake_location/ios`)
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - security_plus (from `.symlinks/plugins/security_plus/ios`)
 
 EXTERNAL SOURCES:
+  detect_fake_location:
+    :path: ".symlinks/plugins/detect_fake_location/ios"
   Flutter:
     :path: Flutter
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
   security_plus:
     :path: ".symlinks/plugins/security_plus/ios"
 
 SPEC CHECKSUMS:
+  detect_fake_location: 67ba415c979cabbb79db9b34327073b77326027b
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   integration_test: 13825b8a9334a850581300559b8839134b124670
+  permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   security_plus: 359cfedc4f1d39235c78ccc4037f427a38140d47
 
 PODFILE CHECKSUM: 70d9d25280d0dd177a5f637cdb0f0b0b12c6a189
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.14.3
