@@ -22,7 +22,6 @@ class _MyAppState extends State<MyApp> {
       _isExtStorage = false,
       _isEmulator = false;
   bool _isMockLocationEnabled = false;
-  MethodChannel platform = const MethodChannel('security_plus');
 
   @override
   void initState() {
@@ -74,14 +73,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> isMockLocationEnabled() async {
-    try {
-      final bool result = await platform.invokeMethod('isMockLocationEnabled');
-      setState(() {
+    if (Platform.isAndroid) {
+      try {
+        bool result = await SecurityPlus.isMockLocationEnabled;
         _isMockLocationEnabled = result;
-      });
-    } on PlatformException catch (e) {
-      print("Failed to check mock location: '${e.message}'.");
+      } catch (e) {
+        log('\x1B[31m${"=====error======"}\x1B[0m');
+      }
     }
+
+    setState(() {});
   }
 
   Future<void> isDevelopment() async {

@@ -34,4 +34,8 @@ void main() {
   test('isRooted', () async {
     expect(await SecurityPlus.isRooted, true);
   });
+
+  test('isMockLocationEnabled', () async {
+    expect(await SecurityPlus.isMockLocationEnabled, true);
+  });
 }
