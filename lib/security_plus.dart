@@ -46,10 +46,4 @@ class SecurityPlus {
         await _channel.invokeMethod('isMockLocationEnabled');
     return isMockLocationEnabled;
   }
-
-  // Android Mocked Location checks
-  // static Future<bool> get isMockedLocation async {
-  //   final bool isRooted = await _channel.invokeMethod('isMockedLocation');
-  //   return isRooted;
-  // }
 }
