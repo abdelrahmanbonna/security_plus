@@ -7,7 +7,7 @@ Please Note: [isRooted] and [isJailBroken] are both async functions which return
 ## install:
 ```dart
 dependencies:
-   security_plus: ^1.0.0
+   security_plus: ^2.0.0
 ```
 
 ## use:
