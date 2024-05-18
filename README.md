@@ -29,9 +29,16 @@ dependencies:
 // You could use [isDevelopmentModeEnable] to check if the Android device is in Development mode or not 
   SecurityPlus.isDevelopmentModeEnable
 
+// You could use [isMockLocationEnabled] to check if the Android device is using a mock location method or not 
+  SecurityPlus.isMockLocationEnabled
 ```
 
+## Future Work
+
+ - Adding SSL pinning (DIO)
+ - Adding SSL pinning (HTTP)
+ - Adding Mobile data detection
 
 ## Credits
 
-Thanks to [abu](https://github.com/abu0306) for creating flutter_root_jailbreak which was the inspiration for this plugin.
+Thanks to [abu](https://github.com/abu0306) for creating flutter_root_jailbreak which was the inspiration for this plugin. Also thanks for [MazenEmara](https://github.com/MazenEmara) for contributing to this project and being part of the team.
