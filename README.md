@@ -7,7 +7,7 @@ Please Note: [isRooted] and [isJailBroken] are both async functions which return
 ## install:
 ```YAML
 dependencies:
-   security_plus: ^2.0.0
+   security_plus: ^2.0.1
 ```
 
 ## use:

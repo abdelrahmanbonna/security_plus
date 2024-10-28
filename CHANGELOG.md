@@ -1,6 +1,3 @@
-## 2.0.0
+## 2.0.1
 
-* root detection and jailbreak detection features enhanced 
-* Mock location added 
-
-Thanks to Mazen Emara for his contributions.
+* adding namespace in gradle to be able to run projects with new gradles

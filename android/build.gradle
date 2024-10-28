@@ -1,3 +1,5 @@
+package android
+
 group 'com.absolutions.security_plus'
 version '1.0-SNAPSHOT'
 
@@ -25,6 +27,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace 'com.absolutions.security_plus'
     compileSdkVersion 31
 
     compileOptions {
