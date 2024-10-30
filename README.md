@@ -9,6 +9,20 @@ Please Note: [isRooted] and [isJailBroken] are both async functions which return
 dependencies:
    security_plus: ^2.0.2
 ```
+### Android
+ 1. Add the following to your AndroidManifest.xml file:
+```XML
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+</manifest>
+```
+### IOS
+ 1. Add the following to your Info.plist file:
+```XML
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>This app needs access to location when open.</string>
+```
 
 ## use:
 
