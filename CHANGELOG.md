@@ -1,3 +1,3 @@
-## 2.0.1
+## 2.0.2
 
-* adding namespace in gradle to be able to run projects with new gradles
+* fixed issue with gradle build
