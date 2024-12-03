@@ -1,8 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:security_plus/security_plus.dart';
-import 'dart:io' show Platform;
-import 'package:mockito/mockito.dart';
 import 'package:mockito/annotations.dart';
 
 @GenerateMocks([MethodChannel])
