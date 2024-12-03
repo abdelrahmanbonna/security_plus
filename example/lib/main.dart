@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:security_plus/security_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,11 +27,29 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    isRooted();
-    isExtStorage();
-    isEmulator();
-    isDevelopment();
-    isMockLocationEnabled();
+    _checkPermissionsAndInitialize();
+  }
+
+  Future<void> _checkPermissionsAndInitialize() async {
+    if (Platform.isAndroid) {
+      final locationStatus = await Permission.location.request();
+      if (locationStatus.isGranted) {
+        await _initializeSecurityChecks();
+      } else {
+        log('Location permission denied');
+        // Handle permission denied case
+      }
+    } else {
+      await _initializeSecurityChecks();
+    }
+  }
+
+  Future<void> _initializeSecurityChecks() async {
+    await isRooted();
+    await isExtStorage();
+    await isEmulator();
+    await isDevelopment();
+    await isMockLocationEnabled();
   }
 
   Future<void> isRooted() async {
@@ -38,121 +57,88 @@ class _MyAppState extends State<MyApp> {
       bool result = Platform.isAndroid
           ? await SecurityPlus.isRooted
           : await SecurityPlus.isJailBroken;
-      _isRooted = result;
+      setState(() {
+        _isRooted = result;
+      });
     } catch (e) {
       log('\x1B[31m${"=====error======"}\x1B[0m');
+      log(e.toString());
     }
-
-    setState(() {});
   }
 
   Future<void> isExtStorage() async {
     if (Platform.isAndroid) {
       try {
         bool result = await SecurityPlus.isOnExternalStorage;
-        _isExtStorage = result;
+        setState(() {
+          _isExtStorage = result;
+        });
       } catch (e) {
         log('\x1B[31m${"=====error======"}\x1B[0m');
+        log(e.toString());
       }
     }
-
-    setState(() {});
   }
 
   Future<void> isEmulator() async {
-    if (Platform.isAndroid) {
-      try {
-        bool result = await SecurityPlus.isEmulator;
+    try {
+      bool result = await SecurityPlus.isEmulator;
+      setState(() {
         _isEmulator = result;
-      } catch (e) {
-        log('\x1B[31m${"=====error======"}\x1B[0m');
-      }
+      });
+    } catch (e) {
+      log('\x1B[31m${"=====error======"}\x1B[0m');
+      log(e.toString());
     }
-
-    setState(() {});
-  }
-
-  Future<void> isMockLocationEnabled() async {
-    if (Platform.isAndroid) {
-      try {
-        bool result = await SecurityPlus.isMockLocationEnabled;
-        _isMockLocationEnabled = result;
-      } catch (e) {
-        log('\x1B[31m${"=====error======"}\x1B[0m');
-      }
-    }
-
-    setState(() {});
   }
 
   Future<void> isDevelopment() async {
-    if (Platform.isAndroid) {
-      try {
-        bool result = await SecurityPlus.isDevelopmentModeEnable;
+    try {
+      bool result = await SecurityPlus.isDevelopmentModeEnable;
+      setState(() {
         _isDev = result;
-      } catch (e) {
-        log('\x1B[31m${"=====error======"}\x1B[0m');
-      }
+      });
+    } catch (e) {
+      log('\x1B[31m${"=====error======"}\x1B[0m');
+      log(e.toString());
     }
+  }
 
-    setState(() {});
+  Future<void> isMockLocationEnabled() async {
+    if (!Platform.isAndroid) return;
+    try {
+      bool result = await SecurityPlus.isMockLocationEnabled;
+      setState(() {
+        _isMockLocationEnabled = result;
+      });
+    } catch (e) {
+      log('\x1B[31m${"=====error======"}\x1B[0m');
+      log(e.toString());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Rooted || JailBroken'),
+          title: const Text('Security Plus Example'),
         ),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 100,
-                child: Center(
-                  child: Platform.isAndroid
-                      ? Text('Android is rooted : $_isRooted\n')
-                      : Text('iOS is is jail broken : $_isRooted\n'),
-                ),
+              Text('Device is ${_isRooted ? "" : "not"} rooted'),
+              if (Platform.isAndroid) ...[
+                Text('App is ${_isExtStorage ? "" : "not"} on external storage'),
+                Text('Device is ${_isEmulator ? "" : "not"} an emulator'),
+                Text('Device is ${_isDev ? "" : "not"} in development mode'),
+                Text('Mock location is ${_isMockLocationEnabled ? "enabled" : "disabled"}'),
+              ],
+              ElevatedButton(
+                onPressed: _checkPermissionsAndInitialize,
+                child: const Text('Refresh Security Checks'),
               ),
-              if (Platform.isAndroid)
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  child: Center(
-                      child:
-                          Text('Android is Emulator device : $_isEmulator\n')),
-                ),
-              if (Platform.isAndroid)
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  child: Center(
-                      child: Text('Android is Development mode : $_isDev\n')),
-                ),
-              if (Platform.isAndroid)
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  child: Center(
-                      child: Text(
-                          'Android is on External Storage : $_isExtStorage\n')),
-                ),
-              if (Platform.isAndroid)
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  child: Center(
-                    child: Text(
-                        'Mock Location Enabled: $_isMockLocationEnabled\n'),
-                  ),
-                ),
             ],
           ),
         ),

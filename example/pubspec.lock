@@ -49,14 +49,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  detect_fake_location:
-    dependency: "direct main"
-    description:
-      name: detect_fake_location
-      sha256: "7547981b2e71c82f0614e74f3da06edbfd7974f2fcb4d01706b70c2c32149886"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -171,21 +163,21 @@ packages:
     source: hosted
     version: "1.9.0"
   permission_handler:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: permission_handler
-      sha256: "284a66179cabdf942f838543e10413246f06424d960c92ba95c84439154fcac8"
+      sha256: bc56bfe9d3f44c3c612d8d393bd9b174eb796d706759f9b495ac254e4294baa5
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.1"
+    version: "10.4.5"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: f9fddd3b46109bd69ff3f9efa5006d2d309b7aec0f3c1c5637a60a2d5659e76e
+      sha256: "59c6322171c29df93a22d150ad95f3aa19ed86542eaec409ab2691b8f35f9a47"
       url: "https://pub.dev"
     source: hosted
-    version: "11.1.0"
+    version: "10.3.6"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -240,7 +232,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.0.1"
+    version: "3.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
