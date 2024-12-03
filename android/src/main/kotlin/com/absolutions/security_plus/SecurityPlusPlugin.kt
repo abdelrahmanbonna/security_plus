@@ -22,8 +22,9 @@ import android.Manifest
 
 import android.os.Debug
 import java.io.BufferedReader
-import java.io.File
 import java.io.InputStreamReader
+
+import java.io.File
 
 /** SecurityPlusPlugin */
 class SecurityPlusPlugin: FlutterPlugin, MethodCallHandler {
@@ -50,29 +51,136 @@ class SecurityPlusPlugin: FlutterPlugin, MethodCallHandler {
     fun isRooted(): Boolean {
         val rootBeer = RootBeer(context)
         val isRooted = rootBeer.isRooted
-    
-        // other indicators that are commonly used by Frida
-        val isDebuggerAttached = Debug.isDebuggerConnected()
-        val isEmulator = isEmulator()
-        val isSuperuserAppInstalled = isSuperuserAppInstalled(context)
-        val isRunningInAPKMode = isRunningInAPKMode()
-    
-        return isRooted || isDebuggerAttached || isSuperuserAppInstalled || isRunningInAPKMode
+
+        return isRooted || 
+               isDebuggerAttached() || 
+               isSuperuserAppInstalled(context) || 
+               isRunningInAPKMode() ||
+               checkFridaProcesses() ||
+               checkSuspiciousFiles() ||
+               checkSuPaths() ||
+               checkFridaLibraries() ||
+               detectHooks()
     }
-    
-    
-    private fun isSuperuserAppInstalled(context: Context): Boolean {
-        val packages: List<ApplicationInfo> = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        for (packageInfo in packages) {
-            if (packageInfo.packageName.equals("eu.chainfire.supersu", ignoreCase = true)
-                || packageInfo.packageName.equals("com.koushikdutta.superuser", ignoreCase = true)
-                || packageInfo.packageName.equals("com.topjohnwu.magisk", ignoreCase = true)) {
+
+    private fun isDebuggerAttached(): Boolean {
+        return Debug.isDebuggerConnected()
+    }
+
+    private fun checkFridaProcesses(): Boolean {
+        val suspiciousProcesses = arrayOf(
+            "frida", "frida-server", "frida-helper",
+            "frida-agent", "magisk", "magiskd"
+        )
+        
+        return try {
+            val process = Runtime.getRuntime().exec("ps")
+            val reader = BufferedReader(InputStreamReader(process.inputStream))
+            var line: String?
+            
+            while (reader.readLine().also { line = it } != null) {
+                for (processName in suspiciousProcesses) {
+                    if (line?.lowercase()?.contains(processName) == true) {
+                        return true
+                    }
+                }
+            }
+            false
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    private fun checkSuspiciousFiles(): Boolean {
+        val suspiciousFiles = arrayOf(
+            "/system/app/Superuser.apk",
+            "/system/etc/init.d/99SuperSUDaemon",
+            "/dev/com.koushikdutta.superuser.daemon/",
+            "/system/xbin/daemonsu",
+            "/sbin/su",
+            "/system/bin/su",
+            "/system/xbin/su",
+            "/data/local/xbin/su",
+            "/data/local/bin/su",
+            "/system/sd/xbin/su",
+            "/system/bin/failsafe/su",
+            "/data/local/su",
+            "/su/bin/su"
+        )
+        
+        for (path in suspiciousFiles) {
+            if (File(path).exists()) {
                 return true
             }
         }
         return false
     }
-    
+
+    private fun checkSuPaths(): Boolean {
+        val paths = System.getenv("PATH")?.split(":") ?: return false
+        for (path in paths) {
+            if (File(path + "/su").exists()) {
+                return true
+            }
+        }
+        return false
+    }
+
+    private fun checkFridaLibraries(): Boolean {
+        val libraries = arrayOf(
+            "frida-agent",
+            "frida-gadget",
+            "frida"
+        )
+        
+        try {
+            val maps = File("/proc/self/maps").readLines()
+            for (line in maps) {
+                for (lib in libraries) {
+                    if (line.contains(lib)) {
+                        return true
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            // Ignore exceptions
+        }
+        return false
+    }
+
+    private fun detectHooks(): Boolean {
+        return try {
+            val runtime = Runtime.getRuntime()
+            val field = runtime.javaClass.getDeclaredField("nativeLoad")
+            field.isAccessible = true
+            false
+        } catch (e: Exception) {
+            true
+        }
+    }
+
+    private fun isSuperuserAppInstalled(context: Context): Boolean {
+        val suspiciousPackages = arrayOf(
+            "eu.chainfire.supersu",
+            "com.koushikdutta.superuser",
+            "com.thirdparty.superuser",
+            "com.topjohnwu.magisk",
+            "com.kingroot.kinguser",
+            "com.kingo.root",
+            "com.smedialink.oneclickroot",
+            "com.zhiqupk.root.global",
+            "com.alephzain.framaroot"
+        )
+        
+        val packages: List<ApplicationInfo> = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        for (packageInfo in packages) {
+            if (suspiciousPackages.any { packageInfo.packageName.equals(it, ignoreCase = true) }) {
+                return true
+            }
+        }
+        return false
+    }
+
     private fun isRunningInAPKMode(): Boolean {
         var cmdlineReader: BufferedReader? = null
         try {
@@ -86,7 +194,6 @@ class SecurityPlusPlugin: FlutterPlugin, MethodCallHandler {
         }
         return false
     }
-    
 
     private fun isEmulator(): Boolean {
         return (Build.FINGERPRINT.startsWith("generic")
@@ -157,9 +264,6 @@ class SecurityPlusPlugin: FlutterPlugin, MethodCallHandler {
         return false
     }
     
-    
-    
-
     private fun isOnExternalStorage(context: Context): Boolean {
         val pm: PackageManager = context.packageManager
         try {
