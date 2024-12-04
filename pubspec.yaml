@@ -1,6 +1,6 @@
 name: security_plus
 description: A new Flutter plugin to detect more than one security alert like root, jailbreak, emulator, development mode , and external storage run.
-version: 1.0.0
+version: 3.0.0
 homepage: https://github.com/abdelrahmanbonna/security_plus
 
 environment:
@@ -15,7 +15,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^2.0.0
+  mockito: ^5.4.2
+  build_runner: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
