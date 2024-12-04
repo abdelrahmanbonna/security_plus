@@ -51,16 +51,8 @@ class SecurityPlusPlugin: FlutterPlugin, MethodCallHandler {
     fun isRooted(): Boolean {
         val rootBeer = RootBeer(context)
         val isRooted = rootBeer.isRooted
-
-        return isRooted || 
-               isDebuggerAttached() || 
-               isSuperuserAppInstalled(context) || 
-               isRunningInAPKMode() ||
-               checkFridaProcesses() ||
-               checkSuspiciousFiles() ||
-               checkSuPaths() ||
-               checkFridaLibraries() ||
-               detectHooks()
+        println("isRooted: ${isRooted || checkFridaLibraries() || checkFridaProcesses() || checkSuspiciousFiles()}")
+        return isRooted || checkFridaLibraries() || checkFridaProcesses() || checkSuspiciousFiles()
     }
 
     private fun isDebuggerAttached(): Boolean {
