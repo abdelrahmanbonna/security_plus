@@ -32,7 +32,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  security_plus: ^3.0.0
+  security_plus: ^3.0.1
 ```
 
 ## Platform Setup

@@ -2,7 +2,7 @@
 
 ## Security Features and Updates
 
-### Version 3.0.0 (Latest)
+### Version 3.0.1 (Latest)
 - Enhanced Root Detection System
   - Multiple detection layers implementation
   - Advanced Frida detection and blocking
