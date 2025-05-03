@@ -2,22 +2,15 @@
 
 ## Security Features and Updates
 
-### Version 3.0.1 (Latest)
-- Enhanced Root Detection System
-  - Multiple detection layers implementation
-  - Advanced Frida detection and blocking
-  - Improved root-hiding detection mechanisms
-  - Runtime integrity verification
-  - Enhanced package scanning for root management apps
-- Permission Handling
-  - Runtime permission management
-  - Graceful permission denial handling
-  - Location permission requirements
-  - Enhanced error reporting
+### Version 3.0.2 (Latest)
+
+- Bug Fixes
+  - Fixed android build issue
 
 ### Anti-Tampering Protection
 
 #### Root Detection Mechanisms
+
 1. **RootBeer Integration**
    - Base root detection using RootBeer library
    - Custom enhancements for deeper system checks
@@ -79,6 +72,7 @@
 ### Implementation Guidelines
 
 1. **Permission Management**
+
    ```dart
    // Always check permissions before security checks
    if (Platform.isAndroid) {
@@ -91,6 +85,7 @@
    ```
 
 2. **Error Handling**
+
    ```dart
    try {
      final isSecure = await SecurityPlus.isRooted;
@@ -119,6 +114,7 @@
 ## Required Permissions
 
 ### Android
+
 ```xml
 <manifest>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -127,6 +123,7 @@
 ```
 
 ### iOS
+
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>Required for security verification</string>
@@ -137,6 +134,7 @@
 Please report security vulnerabilities by opening an issue in the repository. We take all security issues seriously and will respond promptly.
 
 Please include the following information in your report:
+
 - Type of issue
 - Full paths of source file(s) related to the manifestation of the issue
 - Location of source file(s) in question (tag/branch/commit or direct URL)

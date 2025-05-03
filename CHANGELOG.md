@@ -1,5 +1,5 @@
-# 3.0.1
+# 3.0.2
 
-## Security Enhancements
+## Bug Fixes
 
-- Fixed root detection issues
+- Fixed android build issue
