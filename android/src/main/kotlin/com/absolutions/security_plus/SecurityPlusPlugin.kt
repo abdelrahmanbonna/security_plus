@@ -260,7 +260,7 @@ class SecurityPlusPlugin: FlutterPlugin, MethodCallHandler {
         val pm: PackageManager = context.packageManager
         try {
             val pi: PackageInfo = pm.getPackageInfo(context.packageName, 0)
-            val ai: ApplicationInfo = pi.applicationInfo
+            val ai: ApplicationInfo = pi.applicationInfo ?: return false
             return ai.flags and ApplicationInfo.FLAG_EXTERNAL_STORAGE === ApplicationInfo.FLAG_EXTERNAL_STORAGE
         } catch (e: PackageManager.NameNotFoundException) {
             // ignore
