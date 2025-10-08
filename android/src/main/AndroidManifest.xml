@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.absolutions.security_plus">
+  package="com.absolutions.security_plus"
+  xmlns:tools="http://schemas.android.com/tools">
+    <uses-sdk android:targetSdkVersion="35" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
