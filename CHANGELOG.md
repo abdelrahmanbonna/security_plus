@@ -1,5 +1,7 @@
-# 3.0.2
+# 3.1.0
 
 ## Bug Fixes
 
-- Fixed android build issue
+- Fixed android screen size non complince parts.
+- upgrading permission handler
+- upgrading lints

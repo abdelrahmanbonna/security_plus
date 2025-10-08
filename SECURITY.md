@@ -2,10 +2,12 @@
 
 ## Security Features and Updates
 
-### Version 3.0.2 (Latest)
+### Version 3.1.0 (Latest)
 
 - Bug Fixes
-  - Fixed android build issue
+  - Fixed android 16kb non-complanice parts.
+  - upgrading permission handler
+  - upgrading lints
 
 ### Anti-Tampering Protection
 
