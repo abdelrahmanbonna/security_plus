@@ -2,14 +2,14 @@ group 'com.absolutions.security_plus'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.9.22'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:8.7.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -26,15 +26,22 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'com.absolutions.security_plus'
-    compileSdkVersion 31
+    compileSdk 35
+
+    // 16 KB page size support for Android 15
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging false
+        }
+    }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     sourceSets {
@@ -43,13 +50,18 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdk 16
+        targetSdk 35
+        ndkVersion "26.1.10909125" // NDK r26b or newer for 16 KB page support
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
     }
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
-        implementation 'com.scottyab:rootbeer-lib:0.1.0'
+        implementation 'com.scottyab:rootbeer-lib:0.1.1'
     }
 
     testOptions {
