@@ -41,6 +41,8 @@ flutter:
         pluginClass: SecurityPlusPlugin
       ios:
         pluginClass: SecurityPlusPlugin
+        swiftPackageManager:
+          path: ios/security_plus/
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
