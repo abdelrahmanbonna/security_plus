@@ -16,10 +16,8 @@ migrate_working_dir/
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# VS Code
+.vscode/
 
 # Flutter/Dart/Pub related
 # Libraries should not include pubspec.lock, per https://dart.dev/guides/libraries/private-files#pubspeclock.
@@ -28,3 +26,36 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
+
+# Flutter metadata
+.metadata
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Generated plugin registrants
+**/generated_plugin_registrant.*
+**/GeneratedPluginRegistrant.*
+**/generated_plugins.cmake
+
+# iOS/macOS
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Podfile.lock
+**/macos/Flutter/ephemeral/
+**/macos/Podfile.lock
+
+# Android
+**/android/local.properties
+**/android/.gradle/
+**/.cxx/
+
+# Windows
+**/windows/flutter/ephemeral/
+
+# Linux
+**/linux/flutter/ephemeral/
+
+# Temporary files
+git_files.txt
+git_files_utf8.txt

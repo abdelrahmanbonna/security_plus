@@ -1,7 +1,6 @@
-# 3.1.0
+# 4.0.0
 
-## Bug Fixes
+## New Features
 
-- Fixed android screen size non complince parts.
-- upgrading permission handler
-- upgrading lints
+- Added support for iOS SPMs
+- Upgrading to latest flutter and dart sdk
