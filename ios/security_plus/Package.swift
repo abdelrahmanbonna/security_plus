@@ -9,7 +9,8 @@ let package = Package(
         .iOS(.v12)
     ],
     products: [
-        .library(name: "security_plus", targets: ["security_plus"])
+        .library(name: "security_plus", targets: ["security_plus"]),
+        .library(name: "security-plus", targets: ["security_plus"])
     ],
     dependencies: [],
     targets: [
