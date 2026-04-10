@@ -21,7 +21,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      # Setup Flutter SDK and automated pub.dev credentials
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v3
+        with:
+          channel: stable
+          version: '3.41.6'
+
+      # Setup automated pub.dev credentials
       - uses: flutter-actions/setup-pubdev-credentials@v1
 
       - name: Install dependencies
