@@ -1,11 +1,11 @@
 name: security_plus
 description: A new Flutter plugin to detect more than one security alert like root, jailbreak, emulator, development mode , and external storage run.
-version: 3.1.0
+version: 4.0.0
 homepage: https://github.com/abdelrahmanbonna/security_plus
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
-  flutter: ">=3.3.0"
+  sdk: '>=3.8.0 <4.0.0'
+  flutter: ">=3.38.0"
 
 dependencies:
   flutter:
@@ -41,6 +41,8 @@ flutter:
         pluginClass: SecurityPlusPlugin
       ios:
         pluginClass: SecurityPlusPlugin
+        swiftPackageManager:
+          path: ios/security_plus/
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
