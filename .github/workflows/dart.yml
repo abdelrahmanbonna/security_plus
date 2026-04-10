@@ -16,18 +16,18 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      id-token: write
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
       # Setup Flutter SDK and automated pub.dev credentials
-      - uses: flutter-actions/setup-flutter@v3
       - uses: flutter-actions/setup-pubdev-credentials@v1
 
       - name: Setup Flutter SDK
         uses: flutter-actions/setup-flutter@v3
         with:
-          channel: stable
+          channel: master
           version: any
 
       - name: Install dependencies
