@@ -27,8 +27,8 @@ jobs:
       - name: Setup Flutter SDK
         uses: flutter-actions/setup-flutter@v3
         with:
-          channel: master
-          version: any
+          channel: stable
+          version: '3.41.6'
 
       - name: Install dependencies
         run: flutter pub get
