@@ -32,7 +32,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  security_plus: ^3.0.1
+  security_plus: ^4.1.0
 ```
 
 ## Platform Setup
@@ -56,6 +56,12 @@ dependencies:
 ```
 
 ### iOS
+
+This plugin is distributed for iOS via **Swift Package Manager only** (no CocoaPods podspec). Make sure Swift Package Manager is enabled for your Flutter project:
+
+```bash
+flutter config --enable-swift-package-manager
+```
 
 Add the following to your Info.plist file:
 
