@@ -18,8 +18,9 @@ class SecurityPlus {
     return isJailBroken;
   }
 
-  /// Android Emulator checks
-  /// this gets the value from native channel to flutter to know if app is running on an Emulator
+  /// Emulator / Simulator checks (Android and iOS)
+  /// Android: checks build properties for known emulator values.
+  /// iOS: returns true when running in the iOS Simulator.
   static Future<bool> get isEmulator async {
     final bool isEmulator = await _channel.invokeMethod('isEmulator');
     return isEmulator;

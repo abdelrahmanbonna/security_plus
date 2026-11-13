@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:security_plus/security_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -93,6 +93,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> isDevelopment() async {
+    if (!Platform.isAndroid) return;
     try {
       bool result = await SecurityPlus.isDevelopmentModeEnable;
       setState(() {
@@ -129,9 +130,9 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Device is ${_isRooted ? "" : "not"} rooted'),
+              Text('Device is ${_isEmulator ? "" : "not"} an emulator'),
               if (Platform.isAndroid) ...[
                 Text('App is ${_isExtStorage ? "" : "not"} on external storage'),
-                Text('Device is ${_isEmulator ? "" : "not"} an emulator'),
                 Text('Device is ${_isDev ? "" : "not"} in development mode'),
                 Text('Mock location is ${_isMockLocationEnabled ? "enabled" : "disabled"}'),
               ],

@@ -1,3 +1,10 @@
+# Unreleased
+
+## Changes
+
+- `isEmulator` now works on iOS: returns `true` when running in the iOS Simulator.
+- Fixed: on iOS, calling an unsupported check (`isRooted`, `isDevelopmentModeEnable`, `isMockLocationEnabled`, `isOnExternalStorage`) never completed. It now throws `MissingPluginException`, like unsupported checks on Android.
+
 # 4.1.0
 
 ## Changes

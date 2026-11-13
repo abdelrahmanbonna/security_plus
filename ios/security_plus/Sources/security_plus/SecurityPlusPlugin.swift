@@ -9,10 +9,27 @@ public class SecurityPlusPlugin: NSObject, FlutterPlugin {
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-    if call.method == "isJailBroken" {
+    switch call.method {
+    case "isJailBroken":
         result(isJailBroken())
+    case "isEmulator":
+        result(isEmulator())
+    default:
+        // Always reply so the Dart Future completes (throws MissingPluginException).
+        result(FlutterMethodNotImplemented)
     }
   }
+
+    /// Returns true when the app is running in the iOS Simulator.
+    /// Simulator builds are compiled against the simulator SDK, so this
+    /// compile-time check is exact and uses no private API.
+    func isEmulator() -> Bool {
+        #if targetEnvironment(simulator)
+        return true
+        #else
+        return false
+        #endif
+    }
 
     func isJailBroken() -> Bool {
         return openURL() || written()

@@ -23,19 +23,19 @@ ios/security_plus/Sources/security_plus/SecurityPlusPlugin.swift  handle(_:resul
 ## Method contract
 | Channel method | Dart getter | Android | iOS |
 |---|---|---|---|
-| `isRooted` | `SecurityPlus.isRooted` | ✅ RootBeer + Frida libs (`/proc/self/maps`) + Frida/Magisk procs (`ps`) + su paths | ❌ never replies |
+| `isRooted` | `SecurityPlus.isRooted` | ✅ RootBeer + Frida libs (`/proc/self/maps`) + Frida/Magisk procs (`ps`) + su paths | ❌ `notImplemented` |
 | `isJailBroken` | `SecurityPlus.isJailBroken` | ❌ `notImplemented` | ✅ `cydia://` canOpenURL OR writable `/private/jailbreak.txt` |
-| `isEmulator` | `SecurityPlus.isEmulator` | ✅ `Build.*` heuristics | ❌ never replies |
-| `isDevelopmentModeEnable` | `SecurityPlus.isDevelopmentModeEnable` | ✅ `Settings.Global.DEVELOPMENT_SETTINGS_ENABLED` | ❌ never replies |
-| `isMockLocationEnabled` | `SecurityPlus.isMockLocationEnabled` | ✅ AppOps `OPSTR_MOCK_LOCATION` + `Location.isFromMockProvider` (needs location permission) | ❌ never replies |
-| `isOnExternalStorage` | `SecurityPlus.isOnExternalStorage` | ✅ `FLAG_EXTERNAL_STORAGE` / filesDir path | ❌ never replies |
+| `isEmulator` | `SecurityPlus.isEmulator` | ✅ `Build.*` heuristics | ✅ `#if targetEnvironment(simulator)` |
+| `isDevelopmentModeEnable` | `SecurityPlus.isDevelopmentModeEnable` | ✅ `Settings.Global.DEVELOPMENT_SETTINGS_ENABLED` | ❌ `notImplemented` (no public iOS API for Developer Mode) |
+| `isMockLocationEnabled` | `SecurityPlus.isMockLocationEnabled` | ✅ AppOps `OPSTR_MOCK_LOCATION` + `Location.isFromMockProvider` (needs location permission) | ❌ `notImplemented` |
+| `isOnExternalStorage` | `SecurityPlus.isOnExternalStorage` | ✅ `FLAG_EXTERNAL_STORAGE` / filesDir path | ❌ `notImplemented` |
 
-⚠️ **iOS bug:** `handle()` only answers `isJailBroken`. For any other method it never calls `result(...)`, so the Dart `Future` **never completes**. A fix should add `else { result(FlutterMethodNotImplemented) }`, or implement the checks.
+Unsupported methods reply `notImplemented` on both platforms, which throws `MissingPluginException` in Dart. iOS `handle()` is a `switch` with a `default: result(FlutterMethodNotImplemented)`; keep that default so every call gets a reply.
 
 ## Adding or changing a check (do all of these)
 1. `lib/security_plus.dart`: add a `static Future<bool> get xxx` that calls `invokeMethod('xxx')`. Add a doc comment saying which platforms support it.
 2. Android `SecurityPlusPlugin.kt`: add a `"xxx" -> result.success(xxx())` branch to `onMethodCall`.
-3. iOS `SecurityPlusPlugin.swift`: add a branch in `handle()`, or rely on the `notImplemented` fallback (see bug above).
+3. iOS `SecurityPlusPlugin.swift`: add a `case "xxx":` to the `switch` in `handle()`, or leave it to the `default` (`notImplemented`).
 4. `test/security_plus_test.dart`: add a key to `mockResponses` in `setUp`, and a group with true/false/`PlatformException` tests (copy an existing group).
 5. `example/lib/main.dart`: add state, call it, and show it. Gate platform-only checks with `Platform.isAndroid`.
 6. `README.md` (usage + platform table), `CHANGELOG.md` (new top entry), `SECURITY.md` ("Latest" section).
